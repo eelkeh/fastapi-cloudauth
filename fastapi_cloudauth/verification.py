@@ -237,7 +237,7 @@ class JWKsVerifier(Verifier):
         if claims.get("iat"):
             iat = int(claims["iat"])
             now = timegm(datetime.utcnow().utctimetuple())
-            if now < iat:
+            if (now + 3) < iat:
                 if self.auto_error:
                     raise HTTPException(
                         status_code=status.HTTP_401_UNAUTHORIZED, detail=NOT_VERIFIED
